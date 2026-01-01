@@ -1,5 +1,7 @@
 #!/bin/sh
 
+set -e
+
 # 1. ログ用と実行用のディレクトリ作成
 if [ ! -d "/run/mysqld" ]; then
 	mkdir -p /run/mysqld
@@ -26,15 +28,13 @@ if [ ! -d "/var/lib/mysql/mysql" ]; then
         exit 1
     fi
 
-    # SQLファイルの作成
-    # 注: Day 6でここは環境変数を参照するように書き換えますが、今はこれでOK
     cat << EOF > /tmp/init_db.sql
 USE mysql;
 FLUSH PRIVILEGES;
-CREATE DATABASE IF NOT EXISTS wordpress_db;
-CREATE USER IF NOT EXISTS 'wp_user'@'%' IDENTIFIED BY 'weak_password';
-GRANT ALL PRIVILEGES ON wordpress_db.* TO 'wp_user'@'%';
-ALTER USER 'root'@'localhost' IDENTIFIED BY 'root_password';
+CREATE DATABASE IF NOT EXISTS $DB_NAME;
+CREATE USER IF NOT EXISTS '$DB_USER'@'%' IDENTIFIED BY '$DB_PASS';
+GRANT ALL PRIVILEGES ON $DB_NAME.* TO '$DB_USER'@'%';
+ALTER USER 'root'@'localhost' IDENTIFIED BY '$DB_ROOT_PASS';
 FLUSH PRIVILEGES;
 EOF
 

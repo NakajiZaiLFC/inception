@@ -5,7 +5,7 @@ services:
       dockerfile: Dockerfile
     container_name: nginx
     ports:
-      - "1443:443"
+      - "443:443"
     restart: always
     networks:
       - inception
@@ -13,7 +13,9 @@ services:
       - wordpress_data:/var/www/html
     depends_on:
       - wordpress
-
+    env_file:
+      - .env
+  
   mariadb:
     build:
       context: ./srcs/requirements/mariadb
@@ -24,6 +26,8 @@ services:
       - inception
     volumes:
       - /home/snakajim/mariadb:/var/lib/mysql
+    env_file:
+      - .env
 
   wordpress:
     build:
@@ -35,6 +39,8 @@ services:
       - inception
     volumes:
       - wordpress_data:/var/www/html
+    env_file:
+      - .env
 
 networks:
   inception:
