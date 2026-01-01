@@ -1,0 +1,55 @@
+services:
+  nginx:
+    build:
+      context: ./srcs/requirements/nginx
+      dockerfile: Dockerfile
+    container_name: nginx
+    ports:
+      - "1443:443"
+    restart: always
+    networks:
+      - inception
+    volumes:
+      - wordpress_data:/var/www/html
+    depends_on:
+      - wordpress
+
+  mariadb:
+    build:
+      context: ./srcs/requirements/mariadb
+      dockerfile: Dockerfile
+    container_name: mariadb
+    restart: always
+    networks:
+      - inception
+    volumes:
+      - /home/snakajim/mariadb:/var/lib/mysql
+
+  wordpress:
+    build:
+      context: ./srcs/requirements/wordpress
+      dockerfile: Dockerfile
+    container_name: wordpress
+    restart: always
+    networks:
+      - inception
+    volumes:
+      - wordpress_data:/var/www/html
+
+networks:
+  inception:
+    driver: bridge
+
+volumes:
+  mariadb:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/snakajim/mariadb
+  wordpress_data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/snakajim/wordpress
