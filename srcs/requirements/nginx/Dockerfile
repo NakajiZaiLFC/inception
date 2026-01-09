@@ -4,7 +4,7 @@
 # CMDはコンテナ起動時に実行されるコマンド（PID1）
 
 
-FROM alpine:3.23
+FROM alpine:3.22
 RUN apk update && apk add --no-cache nginx openssl
 RUN mkdir -p /run/nginx/ /etc/nginx/ssl
 
