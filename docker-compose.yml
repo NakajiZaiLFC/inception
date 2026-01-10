@@ -49,12 +49,12 @@ volumes:
     driver_opts:
       type: none
       o: bind
-    device: /home/snakajim/data/mariadb #これが正規の位置
-      # device: /Users/nassy/42tokyo/Lv5/inception/inception/volumes/mariadb
+      device: /Users/nassy/42tokyo/Lv5/inception/inception/volumes/mariadb
+    # device: /home/snakajim/data/mariadb #これが正規の位置
   wordpress_data:
     driver: local
     driver_opts:
       type: none
       o: bind
-    device: /home/snakajim/data/wordpress
-      # device: /Users/nassy/42tokyo/Lv5/inception/inception/volumes/wordpress
+      device: /Users/nassy/42tokyo/Lv5/inception/inception/volumes/wordpress
+    # device: /home/snakajim/data/wordpress

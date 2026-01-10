@@ -16,7 +16,6 @@ fi
 # 2. データベースの初期化 (初回のみ実行)
 if [ ! -d "/var/lib/mysql/mysql" ]; then
     echo "Initialising database..."
-    
     chown -R mysql:mysql /var/lib/mysql
 
     # 設定ファイルを隠さずに初期化
